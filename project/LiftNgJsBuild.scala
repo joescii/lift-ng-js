@@ -13,9 +13,11 @@ object LiftNgJsBuild extends Build {
     Seq()
   }
 
+  val requireFetch = resourceGenerators in Compile <+= fetchKey
+
   lazy val project = Project(
     id = "lift-ng-js", 
     base = file("."),
-    settings = Project.defaultSettings ++ Seq(fetch)
+    settings = Project.defaultSettings ++ Seq(fetch, requireFetch)
   )
 }
