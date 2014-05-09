@@ -1,6 +1,6 @@
 package net.liftmodules.ng
 
-import net.liftweb.http.{LiftRules, DispatchSnippet}
+import net.liftweb.http.{ResourceServer, LiftRules, DispatchSnippet}
 import scala.xml.NodeSeq
 
 object AngularJS extends DispatchSnippet {
@@ -11,6 +11,10 @@ object AngularJS extends DispatchSnippet {
 
     LiftRules.snippetDispatch.append {
       case "AngularJS" => this
+    }
+
+    ResourceServer.allow {
+      case "net" :: "liftmodules" :: "ng" :: "js" :: _ => true
     }
   }
 
