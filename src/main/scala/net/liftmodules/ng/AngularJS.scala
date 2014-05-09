@@ -26,8 +26,8 @@ object AngularJS extends DispatchSnippet {
     import js.BuildInfo.version
     val ms = S.attr("modules").map(_.split(',').map(_.trim).toSeq).openOr(modules)
     ("" +: ms).map { m =>
-      val name = if(m == "") "angular" else s"angular-$m"
-      <script id={name+"_js"} src={s"/classpath/net/liftmodules/ng/js/$name-$version.js"} type="text/javascript"></script>
-    }.reduce(_ ++ _)
+      val name = if(m == "") "angular" else "angular-"+m
+      <script id={name+"_js"} src={"/classpath/net/liftmodules/ng/js/"+name+"-"+version+".js"} type="text/javascript"></script>
+    }.foldLeft(NodeSeq.Empty)(_ ++ _)
   }
 }
