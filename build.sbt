@@ -58,8 +58,8 @@ pomExtra := (
         <url>https://github.com/barnesjd/lift-ng-js</url>
         <licenses>
             <license>
-              <name>Apache 2.0 License</name>
-              <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+              <name>The MIT License (MIT)</name>
+              <url>http://opensource.org/licenses/MIT</url>
               <distribution>repo</distribution>
             </license>
          </licenses>
