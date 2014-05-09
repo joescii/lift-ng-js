@@ -6,6 +6,8 @@ import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext.Implicits.global
 
 object LiftNgJsBuild extends Build {
+  val pluginVersion = SettingKey[String]("pluginVersion", "Version of this plugin")
+  val snapshot = SettingKey[Boolean]("snapshot", "True if this is a snapshot build, false otherwise")
   val ngVersion   = SettingKey[String]("ngVersion", "Full version number of the angular library")
   val liftVersion = SettingKey[String]("liftVersion", "Full version number of the Lift Web Framework")
   val liftEdition = SettingKey[String]("liftEdition", "Lift Edition (short version number to append to artifact name)")
@@ -15,6 +17,10 @@ object LiftNgJsBuild extends Build {
   val fetch = TaskKey[Seq[File]]("fetch", "Fetch the angular modules for the configured version from https://code.angularjs.org")
 
   val defaultNgVersion = ngVersion <<= version { v => if(v.endsWith("-SNAPSHOT")) v.substring(0, v.length-9) else v }
+
+  val defaultVersion = version <<= (pluginVersion, snapshot, ngVersion) ( (p, s, ng) =>
+    p + "_" + ng + (if(s) "-SNAPSHOT" else "")
+  )
 
   val defaultZipUrl = zipUrl <<= (ngVersion, baseUrl) { (v, url) =>
     val base = if(url.endsWith("/")) url else url + "/"
@@ -81,7 +87,7 @@ object LiftNgJsBuild extends Build {
       requireFetch,
       baseUrl := "https://code.angularjs.org/",
       defaultZipUrl,
-      defaultNgVersion
+      defaultVersion
     )
   )
 }

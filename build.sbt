@@ -2,7 +2,11 @@ name := "ng-js"
 
 organization := "net.liftmodules"
 
-version := "1.2.16-SNAPSHOT"
+pluginVersion := "0.1"
+
+ngVersion := "1.2.16"
+
+snapshot := true
 
 liftVersion <<= liftVersion ?? "2.5.1"
 
