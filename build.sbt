@@ -1,4 +1,4 @@
-name := "lift-ng-js"
+name := "ng-js"
 
 organization := "net.liftmodules"
 

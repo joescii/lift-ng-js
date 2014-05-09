@@ -2,10 +2,7 @@
 
 ## Problem Statement
 
-This little project aims to solve the following problems:
-
-1. Make stuff more awesome.
-2. Remove the less awesome stuff from your project.
+This project is designed to allow Lift applications utilizing an AngularJS front-end to easily manage AngularJS modules and updates to those modules while properly handling browser caching concerns.
 
 ## Configuration
 
@@ -18,49 +15,53 @@ resolvers += "Sonatype.org Releases" at "https://oss.sonatype.org/content/reposi
 Add **lift-ng-js** as a dependency in your `build.sbt` or `Build.scala` as appropriate.
 
 ```scala
-libraryDependencies ++= Seq(
-  // Other dependencies ...
-  "net.liftmodules" %% "liftngjs" % "0.0.1" % "compile"
-)
+libraryDependencies ++= {
+  val liftEdition = "2.5" // Also supported: "2.6" and "3.0"
+
+  Seq(
+    // Other dependencies ...
+    "net.liftmodules" %% ("ng-js_"+liftEdition) % "1.2.16" % "compile"
+  )
+}
 ```
 
-## Scala Versions
+And invoke `AngularJS.init()` in your `Boot` class.
 
-This project is compiled, tested, and published for the following Scala versions:
+```scala
+package bootstrap.liftweb
 
-1. 2.9.1
-2. 2.9.1-1
-3. 2.9.2
-4. 2.9.3
-5. 2.10.3
+class Boot {
+  def boot {
+    // Other stuff...
+    
+    // Modules to be included by default.  angular.js is assumed.
+    val modules = Seq("animate", "cookies", "csp", "loader", "resource", "route", "sanitize", "touch")
+    net.liftmodules.ng.AngularJS.init(modules)
+  }
+}
+```
 
+## Supported Versions
+
+**lift-ng-js** is built and released to support Lift editions 2.5 and 2.6 with Scala versions 2.9.1, 2.9.1-1, 2.9.2, and 2.10; and Lift edition 3.0 with Scala version 2.10.4.  This project's scala version is purposefully set at the lowest common denominator to ensure each version compiles.
 
 ## Usage
 
-To use **lift-ng-js**, you should import it and call it...
+Simply add the AngularJS snippet wherever you want to add the configured Angular javascript modules.
 
-## Scaladoc API
+```html
+<script data-lift="AngularJS"></script>
+```
 
-The Scaladoc API for this project can be found [here](http://barnesjd.github.io/lift-ng-js/latest/api).
+Set the `modules` parameter to override the list of modules configured in `Boot`.
 
-## Examples
-
-```scala
-package org.example
-
-import net.liftmodules.ng._
-
-case object MyObject {
-  // ...
-}
+```html
+<script data-lift="AngularJS?modules=animate,cookies,loader,route"></script>
 ```
 
 ## Wishlist
 
-Below is a list of features we would like to one day include in this project
-
-1. Support more awesome.
-2. Decimate the not-awesome.
+Eventually we'd like to get around to including the i18n resources based on the browser's preferred languages.
 
 ## License
 
