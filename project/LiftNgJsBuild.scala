@@ -13,27 +13,50 @@ object LiftNgJsBuild extends Build {
 
   val fetch = TaskKey[Seq[File]]("fetch", "Fetch the angular modules for the configured version from https://code.angularjs.org")
 
+  private def cleanVersion(v:String) = if(v.endsWith("-SNAPSHOT")) v.substring(0, v.length-9) else v
+
   val defaultZipUrl = zipUrl <<= (version, baseUrl) { (v, url) =>
-    val ver = if(v.endsWith("-SNAPSHOT")) v.substring(0, v.length-9) else v
+    val ver = cleanVersion(v)
     val base = if(url.endsWith("/")) url else url + "/"
     s"$base$ver/angular-$ver.zip"
   }
 
-  val defaultFetch = fetch <<= (zipUrl, streams) map { (zip, s) =>
-    s.log.info(s"Fetching $zip")
-    val f = unpackZip(fetchZip(zip))
+  val defaultFetch = fetch <<= (version, zipUrl, resourceManaged in Compile, streams) map { (ver, zip, rsrc, s) =>
+    val log = s.log
+
+    def fetchZip(zipUrl:String): Future[Array[Byte]] = {
+      import dispatch._
+      Http(url(zipUrl) OK as.Bytes)
+    }
+
+    def unpackZip(bytes:Future[Array[Byte]], rsrc:File):Future[Seq[File]] = {
+      import java.io._, java.util.zip._
+
+      val zipRoot = "angular-"+cleanVersion(ver)+"/"
+
+      bytes.map { b =>
+        val s = new ZipInputStream(new ByteArrayInputStream(b))
+        val entries = Stream.continually(s.getNextEntry).takeWhile(_!=null)
+        for {
+          e <- entries
+          if !e.isDirectory
+          if e.getName.split('/').length == 2
+        } yield {
+          val f = new File(rsrc, e.getName.substring(zipRoot.length))
+          log.debug("Creating file "+f.getAbsolutePath)
+          f.createNewFile()
+          f
+        }
+
+      }
+    }
+
+    log.info(s"Fetching $zip")
+    val root = rsrc / "toserve" / "net" / "liftmodules" / "ng" / "js"
+    root.mkdirs()
+    val f = unpackZip(fetchZip(zip), root)
     Await.result(f, 60.seconds)
-  }
 
-  private def fetchZip(zipUrl:String): Future[Array[Byte]] = {
-    import dispatch._
-    Http(url(zipUrl) OK as.Bytes)
-  }
-
-  private def unpackZip(bytes:Future[Array[Byte]]):Future[Seq[File]] = {
-    bytes.map( b =>
-      Seq()
-    )
   }
 
   val requireFetch = resourceGenerators in Compile <+= fetch
