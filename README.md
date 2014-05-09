@@ -34,9 +34,10 @@ class Boot {
   def boot {
     // Other stuff...
     
-    // Modules to be included by default.  angular.js is assumed.
-    val modules = Seq("animate", "cookies", "csp", "loader", "resource", "route", "sanitize", "touch")
-    net.liftmodules.ng.AngularJS.init(modules)
+    net.liftmodules.ng.AngularJS.init(
+       // Modules to be included by default.  angular.js is assumed.
+      "animate", "cookies", "csp", "loader", "resource", "route", "sanitize", "touch"
+    )
   }
 }
 ```

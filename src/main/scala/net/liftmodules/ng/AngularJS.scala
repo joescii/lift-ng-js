@@ -6,7 +6,7 @@ import scala.xml.NodeSeq
 object AngularJS extends DispatchSnippet {
   private var modules:Seq[String] = Seq()
 
-  def init(modules:Seq[String]) = {
+  def init(modules:String*) = {
     this.modules = modules
 
     LiftRules.snippetDispatch.append {
