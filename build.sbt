@@ -14,6 +14,9 @@ scalaVersion <<= scalaVersion ?? "2.9.1"  // This project's scala version is pur
 
 crossScalaVersions := Seq("2.10.4", "2.9.2", "2.9.1-1", "2.9.1")
 
+// sbt 0.13 does some dumb stuff with the name that replaces the liftEdition's . with a -, e.g. 2.5 => 2-5.  This fixes that.
+moduleName := name.value
+
 resolvers ++= Seq(
   "sonatype-snapshots" at "http://oss.sonatype.org/content/repositories/snapshots",
   "sonatype-releases"  at "http://oss.sonatype.org/content/repositories/releases"
