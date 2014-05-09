@@ -32,7 +32,13 @@ object LiftNgJsBuild extends Build {
     def unpackZip(bytes:Future[Array[Byte]], rsrc:File):Future[Seq[File]] = {
       import java.io._, java.util.zip._
 
-      val zipRoot = "angular-"+cleanVersion(ver)+"/"
+      val version = cleanVersion(ver)
+      val zipRoot = s"angular-$version/"
+      def dstFileName(e:ZipEntry) = {
+        val withoutVersion = e.getName.substring(zipRoot.length)
+        val split = withoutVersion.split('.')
+        split.head + s"-$version." + split.tail.mkString(".")
+      }
 
       bytes.map { b =>
         val s = new ZipInputStream(new ByteArrayInputStream(b))
@@ -42,7 +48,7 @@ object LiftNgJsBuild extends Build {
           if !e.isDirectory
           if e.getName.split('/').length == 2
         } yield {
-          val f = new File(rsrc, e.getName.substring(zipRoot.length))
+          val f = new File(rsrc, dstFileName(e))
           log.debug("Creating file "+f.getAbsolutePath)
           f.createNewFile()
           f
