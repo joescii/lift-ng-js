@@ -1,6 +1,6 @@
 package net.liftmodules.ng
 
-import net.liftweb.http.{ResourceServer, LiftRules, DispatchSnippet}
+import net.liftweb.http.{S, ResourceServer, LiftRules, DispatchSnippet}
 import scala.xml.NodeSeq
 
 object AngularJS extends DispatchSnippet {
@@ -22,5 +22,12 @@ object AngularJS extends DispatchSnippet {
     case _ => { _ => render }
   }
 
-  def render: NodeSeq = NodeSeq.Empty
+  def render: NodeSeq = {
+    import js.BuildInfo.version
+    val ms = S.attr("modules").map(_.split(',').map(_.trim).toSeq).openOr(modules)
+    ("" +: ms).map { m =>
+      val name = if(m == "") "angular" else s"angular-$m"
+      <script id={name+"_js"} src={s"/classpath/net/liftmodules/ng/js/$name-$version.js"} type="text/javascript"></script>
+    }.reduce(_ ++ _)
+  }
 }
