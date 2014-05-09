@@ -6,6 +6,7 @@ import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext.Implicits.global
 
 object LiftNgJsBuild extends Build {
+  val ngVersion   = SettingKey[String]("ngVersion", "Full version number of the angular library")
   val liftVersion = SettingKey[String]("liftVersion", "Full version number of the Lift Web Framework")
   val liftEdition = SettingKey[String]("liftEdition", "Lift Edition (short version number to append to artifact name)")
   val baseUrl = SettingKey[String]("baseUrl", "The base URL for fetching angular code")
@@ -13,15 +14,14 @@ object LiftNgJsBuild extends Build {
 
   val fetch = TaskKey[Seq[File]]("fetch", "Fetch the angular modules for the configured version from https://code.angularjs.org")
 
-  private def cleanVersion(v:String) = if(v.endsWith("-SNAPSHOT")) v.substring(0, v.length-9) else v
+  val defaultNgVersion = ngVersion <<= version { v => if(v.endsWith("-SNAPSHOT")) v.substring(0, v.length-9) else v }
 
-  val defaultZipUrl = zipUrl <<= (version, baseUrl) { (v, url) =>
-    val ver = cleanVersion(v)
+  val defaultZipUrl = zipUrl <<= (ngVersion, baseUrl) { (v, url) =>
     val base = if(url.endsWith("/")) url else url + "/"
-    s"$base$ver/angular-$ver.zip"
+    s"$base$v/angular-$v.zip"
   }
 
-  val defaultFetch = fetch <<= (version, zipUrl, resourceManaged in Compile, streams) map { (ver, zip, rsrc, s) =>
+  val defaultFetch = fetch <<= (ngVersion, zipUrl, resourceManaged in Compile, streams) map { (ver, zip, rsrc, s) =>
     val log = s.log
 
     def fetchZip(zipUrl:String): Future[Array[Byte]] = {
@@ -37,12 +37,11 @@ object LiftNgJsBuild extends Build {
         Stream.continually(in.read(b, 0, 1024)).takeWhile(_ > 0).foreach( c => out.write(b, 0, c) )
       }
 
-      val version = cleanVersion(ver)
-      val zipRoot = s"angular-$version/"
+      val zipRoot = s"angular-$ver/"
       def dstFileName(e:ZipEntry) = {
         val withoutVersion = e.getName.substring(zipRoot.length)
         val split = withoutVersion.split('.')
-        split.head + s"-$version." + split.tail.mkString(".")
+        split.head + s"-$ver." + split.tail.mkString(".")
       }
 
       bytes.map { b =>
@@ -81,7 +80,8 @@ object LiftNgJsBuild extends Build {
       defaultFetch,
       requireFetch,
       baseUrl := "https://code.angularjs.org/",
-      defaultZipUrl
+      defaultZipUrl,
+      defaultNgVersion
     )
   )
 }

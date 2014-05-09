@@ -23,11 +23,11 @@ object AngularJS extends DispatchSnippet {
   }
 
   def render: NodeSeq = {
-    import js.BuildInfo.version
+    import js.BuildInfo.ngVersion
     val ms = S.attr("modules").map(_.split(',').map(_.trim).toSeq).openOr(modules)
     ("" +: ms).map { m =>
       val name = if(m == "") "angular" else "angular-"+m
-      <script id={name+"_js"} src={"/classpath/net/liftmodules/ng/js/"+name+"-"+version+".js"} type="text/javascript"></script>
+      <script id={name+"_js"} src={"/classpath/net/liftmodules/ng/js/"+name+"-"+ngVersion+".js"} type="text/javascript"></script>
     }.foldLeft(NodeSeq.Empty)(_ ++ _)
   }
 }
