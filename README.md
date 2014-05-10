@@ -1,7 +1,5 @@
 # lift-ng-js
 
-## Problem Statement
-
 This project is designed to allow Lift applications utilizing an AngularJS front-end to easily manage AngularJS modules.  This plugin allows you to update your Angular version in one location the same way you update your Scala and Java dependencies in your build file.  It also does the right thing by adding the version to the file names to properly handle browser caching concerns and serving the minified version in non-development modes.
 
 ## Configuration and usage
