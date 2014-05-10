@@ -2,7 +2,7 @@
 
 ## Problem Statement
 
-This project is designed to allow Lift applications utilizing an AngularJS front-end to easily manage AngularJS modules and updates to those modules while doing the right thing by properly handling browser caching concerns and serving the minified version in non-development modes.
+This project is designed to allow Lift applications utilizing an AngularJS front-end to easily manage AngularJS modules.  This plugin allows you to update your Angular version in one location the same way you update your Scala and Java dependencies in your build file.  It also does the right thing by adding the version to the file names to properly handle browser caching concerns and serving the minified version in non-development modes.
 
 ## Configuration and usage
 
@@ -17,10 +17,12 @@ Add **lift-ng-js** as a dependency in your `build.sbt` or `Build.scala` as appro
 ```scala
 libraryDependencies ++= {
   val liftEdition = "2.5" // Also supported: "2.6" and "3.0"
+  val ngVersion = "1.2.16"
+  val liftNgJsVersion = "0.1"
 
   Seq(
     // Other dependencies ...
-    "net.liftmodules" %% ("ng-js_"+liftEdition) % "1.2.16" % "compile"
+    "net.liftmodules" %% ("ng-js_"+liftEdition) % (liftNgJsVersion+"_"+ngVersion) % "compile"
   )
 }
 ```
