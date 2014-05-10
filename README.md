@@ -2,9 +2,9 @@
 
 ## Problem Statement
 
-This project is designed to allow Lift applications utilizing an AngularJS front-end to easily manage AngularJS modules and updates to those modules while properly handling browser caching concerns.
+This project is designed to allow Lift applications utilizing an AngularJS front-end to easily manage AngularJS modules and updates to those modules while doing the right thing by properly handling browser caching concerns and serving the minified version in non-development modes.
 
-## Configuration
+## Configuration and usage
 
 Add the Sonatype.org Releases repo as a resolver in your `build.sbt` or `Build.scala` as appropriate.
 
@@ -25,7 +25,7 @@ libraryDependencies ++= {
 }
 ```
 
-And invoke `AngularJS.init()` in your `Boot` class.
+Invoke `AngularJS.init()` in your `Boot` class.
 
 ```scala
 package bootstrap.liftweb
@@ -42,23 +42,28 @@ class Boot {
 }
 ```
 
-## Supported Versions
-
-**lift-ng-js** is built and released to support Lift editions 2.5 and 2.6 with Scala versions 2.9.1, 2.9.1-1, 2.9.2, and 2.10; and Lift edition 3.0 with Scala version 2.10.4.  This project's scala version is purposefully set at the lowest common denominator to ensure each version compiles.
-
-## Usage
-
 Simply add the AngularJS snippet wherever you want to add the configured Angular javascript modules.
 
 ```html
 <script data-lift="AngularJS"></script>
 ```
 
-Set the `modules` parameter to override the list of modules configured in `Boot`.
+Optionally set the `modules` parameter to override the list of modules configured in `Boot`.
 
 ```html
 <script data-lift="AngularJS?modules=animate,cookies,loader,route"></script>
 ```
+
+Optionally set the `min` parameter to force the minified js file to be served with `on`, `yes`, or `true`, OR to force the full js file to be served with `off`, `no`, or `false`.  Default behavior is to serve the minified version in all modes except `RunModes.Development`.
+
+```html
+<script data-lift="AngularJS?min=off"></script>
+```
+
+
+## Supported Versions
+
+**lift-ng-js** is built and released to support Lift editions 2.5 and 2.6 with Scala versions 2.9.1, 2.9.1-1, 2.9.2, and 2.10; and Lift edition 3.0 with Scala version 2.10.4.  This project's scala version is purposefully set at the lowest common denominator to ensure each version compiles.
 
 ## Wishlist
 
