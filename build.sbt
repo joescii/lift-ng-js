@@ -6,7 +6,7 @@ pluginVersion := "0.1"
 
 ngVersion := "1.2.16"
 
-snapshot := true
+snapshot := false
 
 liftVersion <<= liftVersion ?? "2.5.1"
 
