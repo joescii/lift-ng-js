@@ -4,7 +4,7 @@ organization := "net.liftmodules"
 
 pluginVersion := "0.1"
 
-ngVersion := "1.2.17"
+ngVersion := "1.2.18"
 
 snapshot := false
 
