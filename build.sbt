@@ -62,7 +62,7 @@ publishArtifact in Test := false
 pomIncludeRepository := { _ => false }
 
 pomExtra := (
-        <url>https://github.com/barnesjd/lift-ng-js</url>
+        <url>https://github.com/joescii/lift-ng-js</url>
         <licenses>
             <license>
               <name>The MIT License (MIT)</name>
@@ -71,14 +71,14 @@ pomExtra := (
             </license>
          </licenses>
          <scm>
-            <url>git@github.com:barnesjd/lift-ng-js.git</url>
-            <connection>scm:git:git@github.com:barnesjd/lift-ng-js.git</connection>
+            <url>git@github.com:joescii/lift-ng-js.git</url>
+            <connection>scm:git:git@github.com:joescii/lift-ng-js.git</connection>
          </scm>
          <developers>
             <developer>
-              <id>barnesjd</id>
+              <id>joescii</id>
               <name>Joe Barnes</name>
-              <url>https://github.com/barnesjd</url>
+              <url>https://github.com/joescii</url>
             </developer>
          </developers>
  )
