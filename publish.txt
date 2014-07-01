@@ -1,6 +1,7 @@
 alias pub=publish-signed
 
 clean 
+fetch
 
 set liftVersion  in ThisBuild:="3.0-SNAPSHOT"
 set scalaVersion in ThisBuild:="2.10.4"
