@@ -15,7 +15,7 @@ Add **lift-ng-js** as a dependency in your `build.sbt` or `Build.scala` as appro
 ```scala
 libraryDependencies ++= {
   val liftEdition = "2.5" // Also supported: "2.6" and "3.0"
-  val ngVersion = "1.2.18"
+  val ngVersion = "1.2.19"
   val liftNgJsVersion = "0.1"
 
   Seq(
