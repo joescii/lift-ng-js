@@ -63,10 +63,12 @@ Optionally set the `min` parameter to force the minified js file to be served wi
 
 ## Supported Scala Versions
 
-**lift-ng-js** is built and released to support Lift editions 2.5 and 2.6 with Scala versions 2.9.1, 2.9.1-1, 2.9.2, and 2.10; and Lift edition 3.0 with Scala version 2.10.4.  This project's scala version is purposefully set at the lowest common denominator to ensure each version compiles.
+**lift-ng-js** is built and released to support Lift edition 2.5 with Scala versions 2.9.1, 2.9.1-1, 2.9.2, and 2.10; Lift edition 2.6 with Scala versions 2.9.1, 2.9.1-1, 2.9.2, 2.10, 2.11; and Lift edition 3.0 with Scala version 2.10.  This project's scala version is purposefully set at the lowest common denominator to ensure each version compiles.
 
-## Supported Angular Versions
+## Published Angular Versions
 
+* 1.2.20
+* 1.2.19
 * 1.2.18
 * 1.2.17
 * 1.2.16
