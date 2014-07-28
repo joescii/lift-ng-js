@@ -83,10 +83,10 @@ seq(lsSettings :_*)
 
 (LsKeys.tags in LsKeys.lsync) := Seq("lift", "angular", "javascript")
 
-(description in LsKeys.lsync) := "lift-ng is the most powerful, most secure AngularJS backend available today"
+(description in LsKeys.lsync) := "lift-ng-js is a convenient packaging of AngularJS modules for Lift"
 
 (LsKeys.ghUser in LsKeys.lsync) := Some("joescii")
 
-(LsKeys.ghRepo in LsKeys.lsync) := Some("lift-ng")
+(LsKeys.ghRepo in LsKeys.lsync) := Some("lift-ng-js")
 
 (LsKeys.ghBranch in LsKeys.lsync) := Some("master")

@@ -1,10 +1,10 @@
 {
   "organization" : "net.liftmodules",
-  "name" : "ng-js",
+  "name" : "lift-ng-js",
   "version" : "0.1_1.2.21",
-  "description" : "lift-ng is the most powerful, most secure AngularJS backend available today",
+  "description" : "lift-ng-js is a convenient packaging of AngularJS modules for Lift",
   "site" : "https://github.com/joescii/lift-ng-js",
-  "tags" : [ "lift", "angular" ],
+  "tags" : [ "lift", "angular", "javascript" ],
   "docs" : "",
   "resolvers" : [ "https://oss.sonatype.org/content/repositories/releases" ],
   "dependencies" : [ {
