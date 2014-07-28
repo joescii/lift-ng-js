@@ -1,0 +1,1 @@
+Packaging of @angularjs 1.2.21 for @liftweb #scala 

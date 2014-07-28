@@ -2,11 +2,13 @@ name := "ng-js"
 
 organization := "net.liftmodules"
 
+homepage := Some(url("https://github.com/joescii/lift-ng-js"))
+
 pluginVersion := "0.1"
 
 ngVersion := "1.2.21"
 
-snapshot := false
+LiftNgJsBuild.snapshot := false
 
 liftVersion <<= liftVersion ?? "2.5.1"
 
@@ -62,23 +64,29 @@ publishArtifact in Test := false
 pomIncludeRepository := { _ => false }
 
 pomExtra := (
-        <url>https://github.com/joescii/lift-ng-js</url>
-        <licenses>
-            <license>
-              <name>The MIT License (MIT)</name>
-              <url>http://opensource.org/licenses/MIT</url>
-              <distribution>repo</distribution>
-            </license>
-         </licenses>
-         <scm>
+        <scm>
             <url>git@github.com:joescii/lift-ng-js.git</url>
             <connection>scm:git:git@github.com:joescii/lift-ng-js.git</connection>
-         </scm>
-         <developers>
+        </scm>
+        <developers>
             <developer>
               <id>joescii</id>
               <name>Joe Barnes</name>
               <url>https://github.com/joescii</url>
             </developer>
-         </developers>
+        </developers>
  )
+ 
+licenses += ("Apache-2.0", url("http://www.apache.org/licenses/LICENSE-2.0.html"))
+
+seq(lsSettings :_*)
+
+(LsKeys.tags in LsKeys.lsync) := Seq("lift", "angular", "javascript")
+
+(description in LsKeys.lsync) := "lift-ng is the most powerful, most secure AngularJS backend available today"
+
+(LsKeys.ghUser in LsKeys.lsync) := Some("joescii")
+
+(LsKeys.ghRepo in LsKeys.lsync) := Some("lift-ng")
+
+(LsKeys.ghBranch in LsKeys.lsync) := Some("master")
