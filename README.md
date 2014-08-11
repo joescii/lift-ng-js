@@ -36,7 +36,7 @@ class Boot {
     
     net.liftmodules.ng.AngularJS.init(
        // Modules to be included by default.  angular.js is assumed.
-      "animate", "cookies", "csp", "loader", "resource", "route", "sanitize", "touch"
+      "animate", "cookies", "loader", "resource", "route", "sanitize", "touch"
     )
   }
 }
