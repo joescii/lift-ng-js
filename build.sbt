@@ -6,7 +6,7 @@ homepage := Some(url("https://github.com/joescii/lift-ng-js"))
 
 pluginVersion := "0.1"
 
-ngVersion := "1.2.21"
+ngVersion := "1.2.22"
 
 LiftNgJsBuild.snapshot := false
 
