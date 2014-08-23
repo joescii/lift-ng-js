@@ -18,7 +18,7 @@ name <<= (name, liftEdition) { (n, e) =>  n + "_" + e }
 
 scalaVersion <<= scalaVersion ?? "2.9.1"  // This project's scala version is purposefully set at the lowest common denominator to ensure each version compiles.
 
-crossScalaVersions := Seq("2.10.4", "2.9.2", "2.9.1-1", "2.9.1")
+crossScalaVersions := Seq("2.11.2", "2.10.4", "2.9.2", "2.9.1-1", "2.9.1")
 
 // sbt 0.13 does some dumb stuff with the name that replaces the liftEdition's . with a -, e.g. 2.5 => 2-5.  This fixes that.
 moduleName := name.value

@@ -15,6 +15,7 @@ object LiftNgJsBuild extends Build {
   val zipUrl  = SettingKey[String]("zipUrl", "The URL for the zip file containing the angular code")
 
   val fetch = TaskKey[Seq[File]]("fetch", "Fetch the angular modules for the configured version from https://code.angularjs.org")
+  val releaseDocs = TaskKey[Seq[File]]("releaseDocs", "Updates the docs for release")
 
   val defaultNgVersion = ngVersion <<= version { v => if(v.endsWith("-SNAPSHOT")) v.substring(0, v.length-9) else v }
 
@@ -77,6 +78,31 @@ object LiftNgJsBuild extends Build {
 
   }
 
+  val defaultReleaseDocs = releaseDocs <<= (ngVersion, version, baseDirectory).map { (ngVer, ver, dir) =>
+    val readmeFile = dir / "README.md"
+    val heraldFile = dir / "notes" / s"$ver.markdown"
+    val lsFile     = dir / "src" / "main" / "ls" / s"$ver.json"
+
+    val readmeContents = IO.readLines(readmeFile).map {
+      line =>
+        if (line startsWith "  val ngVersion = ") s"""  val ngVersion = "$ngVer""""
+        else if (line startsWith "## Published Angular Versions") s"## Published Angular Versions\n* $ngVer"
+        else line
+    }.mkString("\n")
+    IO.write(readmeFile, readmeContents)
+
+    val heraldContents = s"Packaging of @angularjs $ngVer for @liftweb #scala"
+    IO.write(heraldFile, heraldContents)
+
+    val lsContents = IO.readLines(lsFile).map { line =>
+      if (line startsWith """  "name" : """) """  "name" : "lift-ng-js","""
+      else line
+    }.mkString("\n")
+    IO.write(lsFile, lsContents)
+
+    Seq(readmeFile, heraldFile, lsFile)
+  }.dependsOn(ls.Plugin.LsKeys.writeVersion)
+
   val requireFetch = resourceGenerators in Compile <+= fetch
 
   lazy val project = Project(
@@ -87,6 +113,7 @@ object LiftNgJsBuild extends Build {
       requireFetch,
       baseUrl := "https://code.angularjs.org/",
       defaultZipUrl,
+      defaultReleaseDocs,
       defaultVersion
     )
   )

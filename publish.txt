@@ -2,6 +2,7 @@ alias pub=publish-signed
 
 clean 
 fetch
+releaseDocs
 
 set liftVersion in ThisBuild :="3.0-SNAPSHOT"
 set crossScalaVersions := Seq("2.11.2")
