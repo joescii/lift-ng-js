@@ -24,8 +24,8 @@ crossScalaVersions := Seq("2.11.2", "2.10.4", "2.9.2", "2.9.1-1", "2.9.1")
 moduleName := name.value
 
 resolvers ++= Seq(
-  "sonatype-snapshots" at "http://oss.sonatype.org/content/repositories/snapshots",
-  "sonatype-releases"  at "http://oss.sonatype.org/content/repositories/releases"
+  "sonatype-snapshots" at "https://oss.sonatype.org/content/repositories/snapshots",
+  "sonatype-releases"  at "https://oss.sonatype.org/content/repositories/releases"
 )
 
 libraryDependencies <++= liftVersion { v =>

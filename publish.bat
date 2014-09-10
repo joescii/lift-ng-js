@@ -9,10 +9,9 @@ echo USAGE: publish.bat ^<ng-version^>
 exit /b 1
 
 :PUBLISH
-call %SBT_HOME%\bin\sbt "set ngVersion := \"%1\"" "< publish.txt"
+call C:\sbt\bin\sbt "set ngVersion := \"%1\"" "< publish.txt"
 echo Drop, release, commit changes and tags.
 pause
-call %SBT_HOME%\bin\sbt "set ngVersion := \"%1\"" lsync
-call herald
+call C:\sbt\bin\sbt "set ngVersion := \"%1\"" lsync
 
 exit /b 0
