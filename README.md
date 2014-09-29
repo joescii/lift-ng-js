@@ -16,7 +16,7 @@ Add **lift-ng-js** as a dependency in your `build.sbt` or `Build.scala` as appro
 libraryDependencies ++= {
   val liftEdition = "2.5" // Also supported: "2.6" and "3.0"
   val ngVersion = "1.2.25"
-  val liftNgJsVersion = "0.1"
+  val liftNgJsVersion = "0.2"
 
   Seq(
     // Other dependencies ...
@@ -76,6 +76,11 @@ Optionally set the `min` parameter to force the minified js file to be served wi
 * 1.2.18
 * 1.2.17
 * 1.2.16
+
+## Change log
+
+* *0.2*: Minified js files now correctly reference the versioned `sourceMappingURL` file location.
+* *0.1*: Initial release
 
 ## Wishlist
 
