@@ -57,12 +57,21 @@ object LiftNgJsBuild extends Build {
         Stream.continually(s.getNextEntry).takeWhile(_ != null).
           filter(!_.isDirectory).filter(_.getName.split('/').length == 2).
           map { e =>
-            val f = new File(rsrc, dstFileName(e))
-            val out = new FileOutputStream(f)
+            val fileName = dstFileName(e)
+            val f = new File(rsrc, fileName)
+            val out = new PrintStream(new FileOutputStream(f), false, "utf-8")
+            val bytes = new ByteArrayOutputStream()
 
             log.debug("Creating file "+f.getAbsolutePath)
             f.createNewFile()
-            pipeStream(s, out)
+            pipeStream(s, bytes)
+
+            val regex = """\Q//# sourceMappingURL=\E(?:\S*)\Q.min.js.map\E"""
+
+            val srcMappingUpdated = bytes.toString("utf-8").replaceAll(regex, s"//# sourceMappingURL=$fileName.map")
+
+            out.print(srcMappingUpdated)
+            out.flush
             out.close
             f
           }
