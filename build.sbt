@@ -4,9 +4,9 @@ organization := "net.liftmodules"
 
 homepage := Some(url("https://github.com/joescii/lift-ng-js"))
 
-pluginVersion := "0.1"
+pluginVersion := "0.2"
 
-ngVersion := "1.2.22"
+ngVersion := "1.2.25"
 
 LiftNgJsBuild.snapshot := false
 
