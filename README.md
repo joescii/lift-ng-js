@@ -70,6 +70,7 @@ Optionally set the `min` parameter to force the minified js file to be served wi
 * 1.3.2
 * 1.3.1
 * 1.3.0
+* 1.2.27
 * 1.2.26
 * 1.2.25
 * 1.2.24
