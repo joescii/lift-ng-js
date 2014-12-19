@@ -15,7 +15,7 @@ Add **lift-ng-js** as a dependency in your `build.sbt` or `Build.scala` as appro
 ```scala
 libraryDependencies ++= {
   val liftEdition = "2.5" // Also supported: "2.6" and "3.0"
-  val ngVersion = "1.3.6"
+  val ngVersion = "1.2.28"
   val liftNgJsVersion = "0.2"
 
   Seq(
@@ -73,6 +73,7 @@ Optionally set the `min` parameter to force the minified js file to be served wi
 * 1.3.2
 * 1.3.1
 * 1.3.0
+* 1.2.28
 * 1.2.27
 * 1.2.26
 * 1.2.25
