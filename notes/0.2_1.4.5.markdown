@@ -1,0 +1,1 @@
+Packaging of @angularjs 1.4.5 for @liftweb #scala
